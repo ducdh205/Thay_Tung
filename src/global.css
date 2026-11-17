@@ -1,3 +1,6 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body, #root { width: 100%; height: 100%; background: #000; overflow: hidden; }
 body { font-family: system-ui, 'Segoe UI', sans-serif; color: #cdd6f4; }
+@keyframes popIn { from { opacity: 0; transform: translateY(8px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes blink { 50% { opacity: 0; } }
+.caret-bar { animation: blink 1.05s steps(1) infinite; }
