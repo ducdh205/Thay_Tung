@@ -90,18 +90,49 @@ export function createFilmStore(): FilmStore {
   };
 }
 
-/** The text currently on screen for a doc. */
-export function visibleText(doc: Doc): string {
-  return doc.chunks.map((c) => doc.text.slice(c.start, c.start + c.typed)).join('');
+/**
+ * Per chunk: [typed part, reserved newlines]. A chunk still being typed keeps the newlines of its
+ * untyped remainder whenever a later chunk already shows text, so parallel lines never glue together.
+ */
+function layout(doc: Doc): [string, string][] {
+  const out: [string, string][] = [];
+  let laterTyped = false;
+  for (let i = doc.chunks.length - 1; i >= 0; i--) {
+    const c = doc.chunks[i];
+    const typed = doc.text.slice(c.start, c.start + c.typed);
+    const rest = laterTyped ? doc.text.slice(c.start + c.typed, c.start + c.len).replace(/[^\n]/g, '') : '';
+    out[i] = [typed, rest];
+    if (c.typed > 0) laterTyped = true;
+  }
+  return out;
 }
 
-/** Caret position (in visible-text coordinates) for a cursor: end of its latest chunk, else end of doc. */
+/** The text currently on screen for a doc. */
+export function visibleText(doc: Doc): string {
+  return layout(doc).map(([a, b]) => a + b).join('');
+}
+
+/** Caret position (in visible-text coordinates) for a cursor: end of its latest chunk's typed part, else end of doc. */
 export function cursorOffset(doc: Doc, id: CursorId): number {
   let pos = 0;
   let found = -1;
-  for (const c of doc.chunks) {
-    pos += c.typed;
-    if (c.cursor === id) found = pos;
+  let foundIdx = -1;
+  const parts = layout(doc);
+  parts.forEach(([typed, rest], i) => {
+    pos += typed.length;
+    if (doc.chunks[i].cursor === id) {
+      found = pos;
+      foundIdx = i;
+    }
+    pos += rest.length;
+  });
+  if (found < 0) return pos;
+  // Finished chunk followed by someone else's visible text: park at the end of its own last line.
+  const c = doc.chunks[foundIdx];
+  const laterShown = parts.slice(foundIdx + 1).some(([t]) => t.length > 0);
+  if (c.typed === c.len && laterShown) {
+    const own = parts[foundIdx][0];
+    found -= own.length - own.replace(/\n+$/, '').length;
   }
-  return found >= 0 ? found : pos;
+  return found;
 }

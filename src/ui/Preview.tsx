@@ -46,15 +46,15 @@ export function Preview({ state }: { state: FilmState['preview'] }) {
           </div>
           {shown && (
             <div style={{ padding: styled ? '40px 44px' : '16px 12px', transition: T }}>
-              <h1 style={{ fontSize: styled ? 54 : 40, fontWeight: styled ? 800 : 700, color: styled ? '#1e1e2e' : '#000', transition: T, lineHeight: 1.15 }}>
+              <h1 style={{ fontSize: php ? 44 : styled ? 54 : 40, fontWeight: styled ? 800 : 700, color: styled ? '#1e1e2e' : '#000', transition: T, lineHeight: 1.15 }}>
                 {content.site.heading}
               </h1>
               <p style={{ fontSize: styled ? 26 : 22, marginTop: 14, color: styled ? '#555' : '#000', transition: T }}>{content.site.line}</p>
 
               {styled && (
-                <div style={{ display: 'flex', gap: 20, marginTop: 28, animation: 'popIn .8s ease' }}>
+                <div style={{ display: 'flex', gap: 20, marginTop: php ? 18 : 28, animation: 'popIn .8s ease' }}>
                   {['HTML', 'CSS', 'PHP'].map((k) => (
-                    <div key={k} style={{ flex: 1, height: 90, borderRadius: 14, background: k === 'PHP' && !php ? '#eef0f6' : '#f1f5ff', border: '2px solid #dfe6ff', display: 'grid', placeItems: 'center', fontSize: 26, fontWeight: 700, color: k === 'PHP' && !php ? '#bbb' : '#4F6BFF', transition: T }}>
+                    <div key={k} style={{ flex: 1, height: php ? 64 : 90, borderRadius: 14, background: k === 'PHP' && !php ? '#eef0f6' : '#f1f5ff', border: '2px solid #dfe6ff', display: 'grid', placeItems: 'center', fontSize: 26, fontWeight: 700, color: k === 'PHP' && !php ? '#bbb' : '#4F6BFF', transition: T }}>
                       {k}
                     </div>
                   ))}
@@ -62,14 +62,14 @@ export function Preview({ state }: { state: FilmState['preview'] }) {
               )}
 
               {php && (
-                <div style={{ marginTop: 28, animation: 'popIn .6s ease' }}>
+                <div style={{ marginTop: 18, animation: 'popIn .6s ease' }}>
                   <div style={{ display: 'flex', gap: 12, fontSize: 22 }}>
                     <div style={{ flex: 1, border: '2px solid #ccd', borderRadius: 10, padding: '10px 16px', color: '#999' }}>{content.site.formLabel}…</div>
                     <div style={{ background: '#4F6BFF', color: '#fff', borderRadius: 10, padding: '10px 26px', fontWeight: 700 }}>{content.site.formButton}</div>
                   </div>
                   <div style={{ marginTop: 16 }}>
                     {content.phpRows.slice(0, state.phpRows).map((r, i) => (
-                      <div key={i} data-php-row style={{ fontSize: 22, padding: '10px 4px', borderBottom: '1px solid #eee', animation: 'popIn .4s ease' }}>
+                      <div key={i} data-php-row style={{ fontSize: 22, padding: '6px 4px', borderBottom: '1px solid #eee', animation: 'popIn .4s ease' }}>
                         💬 {r}
                       </div>
                     ))}

@@ -19,6 +19,35 @@ export const content = {
     formLabel: 'Lời nhắn',
     formButton: 'Gửi',
   },
+  subtitles: ['Năm nhất, em chỉ có một màn hình trống.', 'Mỗi nhánh em đi đều bắt đầu từ thầy.'],
+
+  /** Code được gõ trong từng cảnh. */
+  code: {
+    s1: {
+      question: 'Mình nên học gì?',
+      tries: ['<h1>Hello', '\nprint("hi"'],
+    },
+    s2: {
+      thay: '<!DOCTYPE html>\n<html lang="vi">\n<body>\n  <h1>Xin chào, thế giới của em</h1>\n',
+      em: '  <p>Em bắt đầu học code</p>\n',
+      close: '</body>\n</html>',
+    },
+    s3: [
+      ['thay', 'body {\n'],
+      ['em', '  font-family: sans-serif;\n'],
+      ['thay', '  margin: 0;\n}\n'],
+      ['em', 'h1 {\n'],
+      ['thay', '  color: #4F6BFF;\n'],
+      ['em', '  font-size: 54px;\n}\n'],
+    ] as [CursorId, string][],
+    s4: {
+      em: '<?php\n$loiNhan = layLoiNhan();\n',
+      thay: 'foreach ($loiNhan as $dong) {\n',
+      em2: '  echo "<li>$dong</li>";\n}\n?>',
+      deploy: ['$ git push', '$ deploy website', '✓ done'],
+    },
+  },
+
   phpRows: ['Trang web đầu tiên của em', 'Đã chạy được PHP rồi!', 'Cảm ơn thầy đã chỉ em từng dòng'],
 
   card: {

@@ -48,11 +48,16 @@ describe('FilmApi', () => {
     f.type('c', 'em', 'BBBB\n', { cps: 5, with: true });
     tl.seek(0.2, false);
     const d = store.get().docs.c;
-    expect(visibleText(d)).toBe('AAB');
+    // Thầy's unfinished line keeps its newline so Em's line does not glue onto it.
+    expect(visibleText(d)).toBe('AA\nB');
     expect(cursorOffset(d, 'thay')).toBe(2);
-    expect(cursorOffset(d, 'em')).toBe(3);
+    expect(cursorOffset(d, 'em')).toBe(4);
     tl.seek(tl.duration(), false);
-    expect(visibleText(store.get().docs.c)).toBe('AAAA\nBBBB\n');
+    const done = store.get().docs.c;
+    expect(visibleText(done)).toBe('AAAA\nBBBB\n');
+    // A finished cursor parks at the end of its own line, not on the start of someone else's.
+    expect(cursorOffset(done, 'thay')).toBe(4);
+    expect(cursorOffset(done, 'em')).toBe(10);
   });
 });
 

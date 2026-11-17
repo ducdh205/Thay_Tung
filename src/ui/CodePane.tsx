@@ -6,6 +6,8 @@ import { content } from '../content';
 const LINE_H = Math.round(CODE_FONT_PX * 1.6);
 const PAD_TOP = 28;
 const GUTTER = 84;
+/** JetBrains Mono advance is 600/1000 em; `ch` is unreliable here (browser measured 0.5em). */
+const CHAR_W = CODE_FONT_PX * 0.6;
 
 function splitLines(tokens: Token[]): Token[][] {
   const lines: Token[][] = [[]];
@@ -75,7 +77,7 @@ export function CodePane({ doc, state, height }: { doc: Doc; state: FilmState; h
             style={{
               position: 'absolute',
               top: c.line * LINE_H,
-              left: `calc(${GUTTER}px + ${c.col}ch)`,
+              left: GUTTER + c.col * CHAR_W,
               height: LINE_H,
               transition: 'left 0.08s linear, top 0.15s ease',
             }}
@@ -83,9 +85,10 @@ export function CodePane({ doc, state, height }: { doc: Doc; state: FilmState; h
             <div className="caret-bar" style={{ width: 3, height: LINE_H * 0.8, marginTop: LINE_H * 0.1, background: COLORS.cursor[c.id] }} />
             <div
               style={{
-                position: 'absolute', bottom: LINE_H * 0.85, left: 0, whiteSpace: 'nowrap',
+                // Right of the caret on its own line: the space there is always still untyped.
+                position: 'absolute', top: LINE_H * 0.2, left: 12, whiteSpace: 'nowrap', lineHeight: 1.3, opacity: 0.92,
                 background: COLORS.cursor[c.id], color: '#11111b', fontFamily: 'system-ui, Segoe UI, sans-serif',
-                fontSize: 18, fontWeight: 700, padding: '2px 10px', borderRadius: '6px 6px 6px 0',
+                fontSize: 18, fontWeight: 700, padding: '2px 10px', borderRadius: '0 6px 6px 6px',
               }}
             >
               {content.cursors[c.id].label}
