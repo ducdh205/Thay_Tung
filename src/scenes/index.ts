@@ -5,5 +5,6 @@ import { s3 } from './s3-css';
 import { s4 } from './s4-php';
 import { s5 } from './s5-thuc-te';
 import { s6 } from './s6-co-hoi';
+import { s7 } from './s7-cam-on';
 
-export const SCENES: SceneDef[] = [s1, s2, s3, s4, s5, s6];
+export const SCENES: SceneDef[] = [s1, s2, s3, s4, s5, s6, s7];

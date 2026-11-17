@@ -72,6 +72,19 @@ export const content = {
     reviewChiTrang: 'Code sạch rồi, merge thôi!',
   },
 
+  /** Cảnh 7: cả bốn con trỏ cùng gõ tấm thiệp, rồi bấm Run. */
+  s7: {
+    fileName: 'cam-on-thay.html',
+    open: '<!DOCTYPE html>\n<html lang="vi">\n<body>\n',
+    together: [
+      ['em', '  <h1>Cảm ơn thầy</h1>\n'],
+      ['anhTung', '  <p>vì đã dẫn đường</p>\n'],
+      ['chiTrang', '  <p>vì đã tin em</p>\n'],
+    ] as [CursorId, string][],
+    close: '</body>\n</html>',
+    run: '▶ Run',
+  },
+
   /** Cảnh 6: các nhánh git (cơ hội) mọc ra từ nhánh của thầy. */
   branches: ['thuc-tap', 'du-an-dau-tien', 'freelance', 'cuoc-thi', 'cong-viec-moi'],
   mainBranch: 'main',

@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { CSSProperties } from 'react';
 import type { FilmStore } from '../engine/store';
 import { useFilmState } from './useFilm';
 import { CodePane } from './CodePane';
@@ -7,7 +7,8 @@ import { Subtitle } from './Subtitle';
 import { Preview } from './Preview';
 import { GitGraph } from './GitGraph';
 import { ContribGrid } from './ContribGrid';
-import { COLORS, STAGE_H } from '../theme';
+import { COLORS, STAGE_H, STAGE_W } from '../theme';
+import { CARD_DOC } from '../scenes/s7-cam-on';
 import { content } from '../content';
 
 const TITLE_H = 44;
@@ -18,10 +19,22 @@ const EXPLORER_W = 320;
 
 export interface EditorProps {
   store: FilmStore;
-  tabExtras?: ReactNode;
 }
 
-export function Editor({ store, tabExtras }: EditorProps) {
+/**
+ * Preview pane box. While `full` grows 0→1 it becomes `position: fixed`, which inside the
+ * transformed Stage is relative to the 1920×1080 stage, and its insets shrink to 0 so the
+ * same element (card animations keep running) grows to cover the whole stage.
+ */
+function previewBox(widthPct: number, full: number, explorer: boolean): CSSProperties {
+  if (full <= 0) return { width: `${widthPct}%`, padding: 20, transition: 'width .8s ease', minWidth: 0 };
+  const mainLeft = ACTIVITY_W + (explorer ? EXPLORER_W : 0);
+  const left = mainLeft + (STAGE_W - mainLeft) / 2;
+  const k = 1 - full;
+  return { position: 'fixed', left: left * k, top: (TITLE_H + TAB_H) * k, right: 0, bottom: STATUS_H * k, padding: 20 * k, zIndex: 25 };
+}
+
+export function Editor({ store }: EditorProps) {
   const s = useFilmState(store);
   const doc = s.activeDoc ? s.docs[s.activeDoc] : null;
   const termH = s.terminal.visible ? Math.round((STAGE_H - TITLE_H - STATUS_H) * 0.3) : 0;
@@ -74,7 +87,20 @@ export function Editor({ store, tabExtras }: EditorProps) {
               </div>
             ))}
             <div style={{ flex: 1 }} />
-            {tabExtras}
+            {s.activeDoc === CARD_DOC && (
+              <div
+                data-run
+                data-pressed={s.preview.runPressed}
+                style={{
+                  alignSelf: 'center', marginRight: 24, padding: '6px 20px', borderRadius: 8, fontSize: 20, fontWeight: 700,
+                  color: s.preview.runPressed ? '#11111b' : COLORS.ok, background: s.preview.runPressed ? COLORS.ok : 'transparent',
+                  border: `2px solid ${COLORS.ok}`, transform: s.preview.runPressed ? 'scale(0.94)' : 'none',
+                  boxShadow: s.preview.runPressed ? `0 0 28px ${COLORS.ok}` : 'none', transition: 'all .25s ease',
+                }}
+              >
+                {content.s7.run}
+              </div>
+            )}
           </div>
 
           <div style={{ flex: 1, display: 'flex', minHeight: 0 }}>
@@ -82,7 +108,7 @@ export function Editor({ store, tabExtras }: EditorProps) {
               {doc && <CodePane doc={doc} state={s} height={codeH} />}
             </div>
             {s.preview.visible && (
-              <div style={{ width: `${previewW}%`, padding: 20 * (1 - s.preview.full), transition: 'width .8s ease', minWidth: 0 }}>
+              <div style={previewBox(previewW, s.preview.full, s.explorer.visible)}>
                 <Preview state={s.preview} />
               </div>
             )}

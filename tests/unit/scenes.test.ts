@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { buildMaster } from '../../src/engine/director';
 import { createFilmStore } from '../../src/engine/store';
 import { SCENES } from '../../src/scenes';
+import { content } from '../../src/content';
 
 const TARGETS = [20, 30, 30, 30, 35, 30, 40];
 
@@ -18,7 +19,7 @@ function film() {
   return { m, endOf, at };
 }
 
-describe('scenes 1–4', () => {
+describe('scenes', () => {
   const { m, endOf, at } = film();
 
   it('each scene lasts close to its target length', () => {
@@ -57,6 +58,24 @@ describe('scenes 1–4', () => {
     expect(s.overlay).toBe('contrib');
     expect(s.overlayProgress).toBe(1);
     expect(s.subtitle).toBeNull();
+  });
+
+  it('has all seven scenes and a 3–4 minute total', () => {
+    expect(SCENES.length).toBe(7);
+    expect(m.duration).toBeGreaterThanOrEqual(180);
+    expect(m.duration).toBeLessThanOrEqual(240);
+  });
+
+  it('ends on the card after Run was pressed, filling the stage', () => {
+    const s = at(m.duration);
+    expect(s.preview.stage).toBe('card');
+    expect(s.preview.runPressed).toBe(true);
+    expect(s.preview.full).toBe(1);
+  });
+
+  it('has no placeholder TODOs in on-screen copy', () => {
+    const { code: _code, ...copy } = content;
+    expect(JSON.stringify(copy)).not.toMatch(/TODO/);
   });
 
   it('scene 4 ends with a deployed PHP site and three rows', () => {
