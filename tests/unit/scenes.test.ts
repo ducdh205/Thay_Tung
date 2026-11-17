@@ -43,6 +43,22 @@ describe('scenes 1–4', () => {
     expect(at(endOf(2)).preview.stage).toBe('css');
   });
 
+  it('scene 5 ends with both mentors present and an approved review', () => {
+    const s = at(endOf(4));
+    expect(s.comments.some((c) => c.approved)).toBe(true);
+    expect(s.cursors.anhTung.visible).toBe(true);
+    expect(s.cursors.chiTrang.visible).toBe(true);
+    expect(s.cursors.thay.visible).toBe(true);
+    expect(s.explorer.visible).toBe(true);
+  });
+
+  it('scene 6 ends on the full contribution grid with the subtitle gone', () => {
+    const s = at(endOf(5));
+    expect(s.overlay).toBe('contrib');
+    expect(s.overlayProgress).toBe(1);
+    expect(s.subtitle).toBeNull();
+  });
+
   it('scene 4 ends with a deployed PHP site and three rows', () => {
     const s = at(endOf(3));
     expect(s.preview.stage).toBe('php');

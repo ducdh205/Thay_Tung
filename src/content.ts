@@ -48,6 +48,35 @@ export const content = {
     },
   },
 
+  /** Cảnh 5: dự án thực tế. */
+  explorerItems: [
+    'du-an-thuc-te/',
+    '  app/',
+    '    Http/Controllers/',
+    '      OrderController.php',
+    '    Models/',
+    '  routes/',
+    '    api.php',
+    '  tests/',
+    '  composer.json',
+    '  .env.example',
+  ],
+  s5: {
+    fileName: 'OrderController.php',
+    terminal: ['$ git clone git@cong-ty:du-an-thuc-te.git', 'Cloning into du-an-thuc-te... 100%', '$ composer install', 'Installing 84 packages...', '✓ ready'],
+    head: '<?php\n\n',
+    first: 'public function store(Request $request)\n{\n',
+    naive: '    $order = Order::create($request->all());\n',
+    fixed: "    $data = $request->validate(['name' => 'required']);\n    $order = Order::create($data);\n    return response()->json($order);\n}",
+    reviewAnhTung: 'Validate dữ liệu trước nhé em',
+    reviewChiTrang: 'Code sạch rồi, merge thôi!',
+  },
+
+  /** Cảnh 6: các nhánh git (cơ hội) mọc ra từ nhánh của thầy. */
+  branches: ['thuc-tap', 'du-an-dau-tien', 'freelance', 'cuoc-thi', 'cong-viec-moi'],
+  mainBranch: 'main',
+  contribYears: ['Năm nhất', 'Năm hai', 'Năm ba', 'Năm tư'],
+
   phpRows: ['Trang web đầu tiên của em', 'Đã chạy được PHP rồi!', 'Cảm ơn thầy đã chỉ em từng dòng'],
 
   card: {

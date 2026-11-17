@@ -7,7 +7,8 @@ export interface FilmApi {
   openFile(doc: Omit<Doc, 'typed' | 'errorLines' | 'chunks'>): void;
   type(docId: string, cursor: CursorId, text: string, o?: TypeOpts): void;
   erase(docId: string, count: number, o?: TypeOpts): void;
-  showCursor(id: CursorId, docId: string | null, visible?: boolean): void;
+  /** `pin`: park the cursor at the end of this 1-based line. */
+  showCursor(id: CursorId, docId: string | null, visible?: boolean, pin?: number): void;
   set(fn: (s: FilmState) => void): void;
   tween(fn: (s: FilmState, p: number) => void, dur: number, o?: VerbOpts): void;
   wait(sec: number): void;
@@ -122,10 +123,11 @@ export function createFilm(store: FilmStore, tl: gsap.core.Timeline): FilmApi {
       });
     },
 
-    showCursor(id, docId, visible = true) {
+    showCursor(id, docId, visible = true, pin) {
       setAt(at(), (s) => {
         s.cursors[id].docId = docId;
         s.cursors[id].visible = visible;
+        s.cursors[id].pin = pin;
       });
     },
 

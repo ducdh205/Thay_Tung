@@ -31,6 +31,20 @@ describe('Editor', () => {
     expect(screen.getByText('index.html')).toBeTruthy();
   });
 
+  it('puts a cursor pinned to a line at the end of that line', () => {
+    const store = storeWithDoc();
+    store.patch((s) => {
+      s.docs.a.text = 'ab\ncdef\n';
+      s.docs.a.chunks = [{ start: 0, len: 8, typed: 8, cursor: 'em' }];
+      s.docs.a.typed = 8;
+      s.cursors.anhTung = { id: 'anhTung', docId: 'a', visible: true, pin: 2 };
+    });
+    const { container } = render(<Editor store={store} />);
+    const caret = container.querySelector('[data-caret="anhTung"]') as HTMLElement;
+    expect(caret.dataset.line).toBe('1');
+    expect(caret.dataset.col).toBe('4');
+  });
+
   it('re-renders on store changes: error lines, subtitles and approved reviews', () => {
     const store = storeWithDoc();
     const { container } = render(<Editor store={store} />);

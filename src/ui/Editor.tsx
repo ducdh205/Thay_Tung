@@ -5,6 +5,8 @@ import { CodePane } from './CodePane';
 import { Terminal } from './Terminal';
 import { Subtitle } from './Subtitle';
 import { Preview } from './Preview';
+import { GitGraph } from './GitGraph';
+import { ContribGrid } from './ContribGrid';
 import { COLORS, STAGE_H } from '../theme';
 import { content } from '../content';
 
@@ -16,11 +18,10 @@ const EXPLORER_W = 320;
 
 export interface EditorProps {
   store: FilmStore;
-  overlaySlot?: ReactNode;
   tabExtras?: ReactNode;
 }
 
-export function Editor({ store, overlaySlot, tabExtras }: EditorProps) {
+export function Editor({ store, tabExtras }: EditorProps) {
   const s = useFilmState(store);
   const doc = s.activeDoc ? s.docs[s.activeDoc] : null;
   const termH = s.terminal.visible ? Math.round((STAGE_H - TITLE_H - STATUS_H) * 0.3) : 0;
@@ -93,7 +94,7 @@ export function Editor({ store, overlaySlot, tabExtras }: EditorProps) {
             </div>
           )}
 
-          {s.overlay !== 'none' && <div style={{ position: 'absolute', inset: 0, background: COLORS.bg, zIndex: 5 }}>{overlaySlot}</div>}
+          {s.overlay !== 'none' && <div style={{ position: 'absolute', inset: 0, background: COLORS.bg, zIndex: 5 }}>{s.overlay === 'gitGraph' ? <GitGraph progress={s.overlayProgress} /> : <ContribGrid progress={s.overlayProgress} />}</div>}
         </div>
       </div>
 

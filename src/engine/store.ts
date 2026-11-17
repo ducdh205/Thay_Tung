@@ -16,7 +16,8 @@ export interface Doc {
   chunks: Chunk[];
   errorLines: number[];
 }
-export interface CursorState { id: CursorId; docId: string | null; visible: boolean }
+/** `pin` (1-based line) parks a cursor at the end of that line instead of after its own typing. */
+export interface CursorState { id: CursorId; docId: string | null; visible: boolean; pin?: number }
 export interface ReviewComment { docId: string; line: number; author: CursorId; text: string; approved?: boolean }
 export type PreviewStage = 'blank' | 'html' | 'css' | 'php' | 'card';
 export type Overlay = 'none' | 'gitGraph' | 'contrib';

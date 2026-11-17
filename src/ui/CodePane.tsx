@@ -31,10 +31,15 @@ function lineCol(text: string, offset: number) {
 export function CodePane({ doc, state, height }: { doc: Doc; state: FilmState; height: number }) {
   const text = visibleText(doc);
   const lines = splitLines(tokenize(text, doc.lang));
-  const carets = CURSOR_IDS.filter((id) => state.cursors[id].visible && state.cursors[id].docId === doc.id).map((id) => ({
-    id,
-    ...lineCol(text, cursorOffset(doc, id)),
-  }));
+  const textLines = text.split('\n');
+  const carets = CURSOR_IDS.filter((id) => state.cursors[id].visible && state.cursors[id].docId === doc.id).map((id) => {
+    const pin = state.cursors[id].pin;
+    if (pin) {
+      const line = Math.min(pin, textLines.length) - 1;
+      return { id, line, col: textLines[line].length };
+    }
+    return { id, ...lineCol(text, cursorOffset(doc, id)) };
+  });
   const comments = state.comments.filter((c) => c.docId === doc.id);
 
   // Keep the lowest caret on screen.
@@ -74,6 +79,8 @@ export function CodePane({ doc, state, height }: { doc: Doc; state: FilmState; h
           <div
             key={c.id}
             data-caret={c.id}
+            data-line={c.line}
+            data-col={c.col}
             style={{
               position: 'absolute',
               top: c.line * LINE_H,
