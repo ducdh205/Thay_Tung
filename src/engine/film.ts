@@ -72,6 +72,7 @@ export function createFilm(store: FilmStore, tl: gsap.core.Timeline): FilmApi {
       const dur = text.length / (o?.cps ?? DEFAULT_CPS);
       setAt(t, (s) => {
         const d = s.docs[docId];
+        if (!d) return;
         d.text = fullText.length > d.text.length ? fullText : d.text;
         if (!d.chunks[idx]) d.chunks[idx] = { start, len: text.length, typed: 0, cursor };
         s.cursors[cursor].docId = docId;
@@ -79,6 +80,8 @@ export function createFilm(store: FilmStore, tl: gsap.core.Timeline): FilmApi {
       });
       tweenAt(t, dur, (s, p) => {
         const d = s.docs[docId];
+        if (!d) return;
+        if (!d.chunks[idx]) return;
         d.chunks[idx].typed = Math.floor(text.length * p + 1e-9);
         d.typed = sumTyped(d);
       });
@@ -103,6 +106,7 @@ export function createFilm(store: FilmStore, tl: gsap.core.Timeline): FilmApi {
       const finalText = sh.text;
       tweenAt(t, count / (o?.cps ?? DEFAULT_CPS), (s, p) => {
         const d = s.docs[docId];
+        if (!d) return;
         let k = Math.floor(count * p + 1e-9);
         for (let i = before.length - 1; i >= 0; i--) {
           const cut = Math.min(k, before[i]);
