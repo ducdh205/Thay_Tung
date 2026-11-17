@@ -12,7 +12,7 @@ export function App() {
       f.openFile({ id: 'a', fileName: 'index.html', lang: 'html', text: '' });
       f.type('a', 'thay', '<!DOCTYPE html>\n<html lang="vi">\n  <h1>Xin chào, thế giới của em</h1>\n', { cps: 30 });
       f.type('a', 'em', '  <p>Em bắt đầu học code</p>\n', { cps: 20 });
-      f.set((s) => { s.docs.a.errorLines = [4]; s.comments = [{ docId: 'a', line: 2, author: 'chiTrang', text: 'Ổn rồi em', approved: true }]; s.terminal = { visible: true, lines: ['$ git clone https://repo', '✓ done'] }; s.subtitle = 'Năm nhất, em chỉ có một màn hình trống.'; });
+      f.set((s) => { s.docs.a.errorLines = [4]; s.comments = [{ docId: 'a', line: 2, author: 'chiTrang', text: 'Ổn rồi em', approved: true }]; s.terminal = { visible: true, lines: ['$ git clone https://repo', '✓ done'] }; s.subtitle = null; s.preview = { visible: true, stage: (location.hash.slice(1) || 'php') as any, phpRows: 3, deployed: true, runPressed: false, full: 0 }; });
     } }], store);
     m.tl.seek(m.duration, false);
   }, [store]);

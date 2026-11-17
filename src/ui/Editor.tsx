@@ -4,6 +4,7 @@ import { useFilmState } from './useFilm';
 import { CodePane } from './CodePane';
 import { Terminal } from './Terminal';
 import { Subtitle } from './Subtitle';
+import { Preview } from './Preview';
 import { COLORS, STAGE_H } from '../theme';
 import { content } from '../content';
 
@@ -15,12 +16,11 @@ const EXPLORER_W = 320;
 
 export interface EditorProps {
   store: FilmStore;
-  previewSlot?: ReactNode;
   overlaySlot?: ReactNode;
   tabExtras?: ReactNode;
 }
 
-export function Editor({ store, previewSlot, overlaySlot, tabExtras }: EditorProps) {
+export function Editor({ store, overlaySlot, tabExtras }: EditorProps) {
   const s = useFilmState(store);
   const doc = s.activeDoc ? s.docs[s.activeDoc] : null;
   const termH = s.terminal.visible ? Math.round((STAGE_H - TITLE_H - STATUS_H) * 0.3) : 0;
@@ -82,7 +82,7 @@ export function Editor({ store, previewSlot, overlaySlot, tabExtras }: EditorPro
             </div>
             {s.preview.visible && (
               <div style={{ width: `${previewW}%`, padding: 20 * (1 - s.preview.full), transition: 'width .8s ease', minWidth: 0 }}>
-                {previewSlot}
+                <Preview state={s.preview} />
               </div>
             )}
           </div>
