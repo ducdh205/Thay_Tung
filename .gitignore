@@ -1,0 +1,6 @@
+.superpowers/
+node_modules/
+dist/
+public/music.mp3
+test-results/
+playwright-report/
