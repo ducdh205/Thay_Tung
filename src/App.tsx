@@ -7,7 +7,7 @@ import { EndOverlay } from './ui/EndOverlay';
 import { createFilmStore } from './engine/store';
 import { buildMaster } from './engine/director';
 import { createMusic } from './engine/audio';
-import { createPlayback, type Playback, type PlayState } from './engine/playback';
+import { createPlayback, shouldHideCursor, type Playback, type PlayState } from './engine/playback';
 import { attachControls, toggleFullscreen } from './engine/controls';
 import { parseParams } from './engine/params';
 import { SCENES } from './scenes';
@@ -28,6 +28,7 @@ export function App() {
   const store = useMemo(() => createFilmStore(), []);
   const [run, setRun] = useState(0); // 0 = waiting for Start; n > 0 = n-th playthrough
   const [state, setState] = useState<PlayState>('idle');
+  const [moved, setMoved] = useState(false);
   const pb = useRef<Playback | null>(null);
 
   // Build one playthrough: fresh store, fresh timeline, fresh music element.
@@ -56,14 +57,25 @@ export function App() {
     });
     const sync = () => pb.current?.sync();
     const id = setInterval(sync, SYNC_EVERY_MS);
-    const onVis = () => document.visibilityState === 'visible' && sync();
+    // On return, let GSAP tick first (it jumps ahead by the hidden time), then pull music to it.
+    const onVis = () => {
+      if (document.visibilityState === 'visible') requestAnimationFrame(() => requestAnimationFrame(sync));
+    };
     document.addEventListener('visibilitychange', onVis);
+    const onMove = () => setMoved(true);
+    window.addEventListener('mousemove', onMove);
     return () => {
       detach();
       clearInterval(id);
       document.removeEventListener('visibilitychange', onVis);
+      window.removeEventListener('mousemove', onMove);
     };
   }, []);
+
+  // Track mouse movement only after the film ends, so the arrow stays off the card until wanted.
+  useEffect(() => {
+    if (state !== 'ended') setMoved(false);
+  }, [state]);
 
   const onStart = () => {
     if (run > 0) return;
@@ -72,7 +84,7 @@ export function App() {
   };
 
   return (
-    <Stage hideCursor={state === 'playing'}>
+    <Stage hideCursor={shouldHideCursor(state, moved)}>
       <Editor store={store} />
       {run === 0 && <StartScreen onStart={onStart} />}
       {state === 'ended' && <EndOverlay onReplay={() => setRun((r) => r + 1)} />}

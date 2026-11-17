@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import gsap from 'gsap';
 import { attachControls } from '../../src/engine/controls';
-import { createPlayback } from '../../src/engine/playback';
+import { createPlayback, shouldHideCursor } from '../../src/engine/playback';
 
 const key = (k: string) => {
   const e = new KeyboardEvent('keydown', { key: k, code: k === ' ' ? 'Space' : `Key${k.toUpperCase()}`, cancelable: true });
@@ -84,5 +84,39 @@ describe('createPlayback', () => {
     const { music, pb } = mk(20);
     pb.start();
     expect(music.play).not.toHaveBeenCalled();
+  });
+});
+
+describe('review fixes', () => {
+  it('ignores auto-repeated Space and modifier shortcuts like Ctrl+F', () => {
+    const h = { started: () => true, toggle: vi.fn(), fullscreen: vi.fn() };
+    const off = attachControls(window, h);
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', code: 'Space', repeat: true, cancelable: true }));
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'f', code: 'KeyF', ctrlKey: true }));
+    expect(h.toggle).not.toHaveBeenCalled();
+    expect(h.fullscreen).not.toHaveBeenCalled();
+    off();
+  });
+
+  it('does not resync music while the page is hidden (timeline is frozen then)', () => {
+    const tl = gsap.timeline({ paused: true });
+    tl.to({}, { duration: 10 });
+    const music = fakeMusic();
+    let hidden = true;
+    const pb = createPlayback({ tl, music, isHidden: () => hidden });
+    pb.start();
+    pb.sync();
+    expect(music.syncTo).not.toHaveBeenCalled();
+    hidden = false;
+    pb.sync();
+    expect(music.syncTo).toHaveBeenCalledTimes(1);
+  });
+
+  it('keeps the mouse arrow hidden after the end until the mouse moves', () => {
+    expect(shouldHideCursor('playing', false)).toBe(true);
+    expect(shouldHideCursor('ended', false)).toBe(true);
+    expect(shouldHideCursor('ended', true)).toBe(false);
+    expect(shouldHideCursor('idle', false)).toBe(false);
+    expect(shouldHideCursor('paused', false)).toBe(false);
   });
 });

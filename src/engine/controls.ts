@@ -7,6 +7,8 @@ export interface ControlHandlers {
 /** Space = pause/resume (only once the film started), F = fullscreen. Returns a detach function. */
 export function attachControls(target: Window, h: ControlHandlers): () => void {
   const onKey = (e: KeyboardEvent) => {
+    // Held keys auto-repeat; Ctrl+F etc. belong to the browser.
+    if (e.repeat || e.ctrlKey || e.altKey || e.metaKey) return;
     if (e.code === 'Space' || e.key === ' ') {
       if (!h.started()) return;
       e.preventDefault();
