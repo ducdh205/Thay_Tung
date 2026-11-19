@@ -14,7 +14,7 @@ export const content = {
   site: {
     url: 'localhost/website-dau-tay',
     name: 'Website đầu tay',
-    heading: 'Xin chào, thế giới của em',
+    heading: 'Hello world',
     line: 'Em bắt đầu học code',
     formLabel: 'Lời nhắn',
     formButton: 'Gửi',
@@ -28,7 +28,7 @@ export const content = {
       tries: ['<h1>Hello', '\nprint("hi"'],
     },
     s2: {
-      thay: '<!DOCTYPE html>\n<html lang="vi">\n<body>\n  <h1>Xin chào, thế giới của em</h1>\n',
+      thay: '<!DOCTYPE html>\n<html lang="vi">\n<body>\n  <h1>Hello world</h1>\n',
       em: '  <p>Em bắt đầu học code</p>\n',
       close: '</body>\n</html>',
     },

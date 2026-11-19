@@ -13,11 +13,11 @@ const prev = (stage: PreviewStage, extra: Partial<ReturnType<typeof initialState
 describe('Preview', () => {
   it('blank stage has no greeting', () => {
     const { container } = render(<Preview state={prev('blank')} />);
-    expect(container.textContent).not.toContain('Xin chào');
+    expect(container.textContent).not.toContain(content.site.heading);
   });
   it('html stage shows the greeting', () => {
     const { container } = render(<Preview state={prev('html')} />);
-    expect(container.textContent).toContain('Xin chào');
+    expect(container.textContent).toContain(content.site.heading);
   });
   it('php stage shows exactly phpRows rows', () => {
     const { container } = render(<Preview state={prev('php', { phpRows: 2 })} />);
