@@ -9,22 +9,22 @@ export const s4: SceneDef = {
   id: 'php',
   build(f) {
     f.openFile({ id: 'php', fileName: 'website.php', lang: 'php', text: '' });
-    f.wait(0.4);
-    f.type('php', 'em', code.em, { cps: 32 });
-    f.type('php', 'thay', code.thay, { cps: 32 });
-    f.type('php', 'em', code.em2, { cps: 32 });
+    f.wait(0.6);
+    f.type('php', 'em', code.em, { cps: 21 });
+    f.type('php', 'thay', code.thay, { cps: 21 });
+    f.type('php', 'em', code.em2, { cps: 21 });
     f.set((s) => {
       s.preview.stage = 'php';
       s.preview.phpRows = 0;
     });
-    f.wait(0.4);
-    f.tween((s, p) => void (s.preview.phpRows = Math.min(ROWS, Math.floor(p * ROWS))), 1.2);
+    f.wait(0.6);
+    f.tween((s, p) => void (s.preview.phpRows = Math.min(ROWS, Math.floor(p * ROWS))), 1.8);
     f.set((s) => void (s.terminal = { visible: true, lines: [] }));
     for (const line of code.deploy) {
       f.set((s) => void s.terminal.lines.push(line));
-      f.wait(0.4);
+      f.wait(0.6);
     }
     f.set((s) => void (s.preview.deployed = true));
-    f.wait(1);
+    f.wait(1.5);
   },
 };

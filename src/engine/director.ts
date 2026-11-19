@@ -4,7 +4,7 @@ import type { FilmStore } from './store';
 
 export interface SceneDef { id: string; build(film: FilmApi): void }
 
-export const SCENE_FADE = 0.4;
+export const SCENE_FADE = 0.6;
 
 /** Builds one paused master timeline: each scene fades in, plays, and (except the last) fades out. */
 export function buildMaster(scenes: SceneDef[], store: FilmStore) {

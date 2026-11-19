@@ -1,6 +1,6 @@
 # Phim cảm ơn thầy Tùng – 20/11
 
-Một "thước phim" khoảng 1 phút, chạy trong trình duyệt. Phim kể hành trình từ năm nhất đến hôm nay, và kết thúc bằng tấm thiệp cảm ơn thầy.
+Một "thước phim" khoảng 90 giây, chạy trong trình duyệt. Phim kể hành trình từ năm nhất đến hôm nay, và kết thúc bằng tấm thiệp cảm ơn thầy.
 
 ## Chiếu phim
 
@@ -21,7 +21,7 @@ Hết phim, tấm thiệp vẫn giữ trên màn hình. Góc dưới bên phải
 ## Nhạc nền
 
 - Đặt file nhạc tên **`music.mp3`** cạnh `index.html` khi chiếu (khi phát triển thì đặt ở `public/music.mp3`).
-- Nhạc bắt đầu cùng lúc với phim và nhỏ dần trong 5 giây cuối.
+- Nhạc bắt đầu cùng lúc với phim và nhỏ dần trong 6 giây cuối.
 - Thiếu file nhạc thì phim vẫn chạy bình thường, chỉ là không có tiếng.
 
 ## Sửa chữ (tên ký, lời thiệp, phụ đề…)

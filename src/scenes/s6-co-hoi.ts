@@ -11,12 +11,12 @@ export const s6: SceneDef = {
       s.overlay = 'gitGraph';
       s.overlayProgress = 0;
     });
-    f.tween((s, p) => void (s.overlayProgress = p), 3.6);
+    f.tween((s, p) => void (s.overlayProgress = p), 5.4);
     f.set((s) => {
       s.overlay = 'contrib';
       s.overlayProgress = 0;
     });
-    f.tween((s, p) => void (s.overlayProgress = p), 3);
-    f.subtitle(content.subtitles[1], 3.6, { with: true });
+    f.tween((s, p) => void (s.overlayProgress = p), 4.5);
+    f.subtitle(content.subtitles[1], 5.4, { with: true });
   },
 };

@@ -17,20 +17,20 @@ export const s5: SceneDef = {
       s.terminal = { visible: true, lines: [] };
     });
     for (const line of c.terminal) {
-      f.wait(0.2);
+      f.wait(0.3);
       f.set((s) => void s.terminal.lines.push(line));
     }
     f.openFile({ id: DOC, fileName: c.fileName, lang: 'php', text: '' });
-    f.type(DOC, 'thay', c.head, { cps: 40 });
-    f.type(DOC, 'em', c.first + c.naive, { cps: 50 });
+    f.type(DOC, 'thay', c.head, { cps: 27 });
+    f.type(DOC, 'em', c.first + c.naive, { cps: 33 });
     f.showCursor('anhTung', DOC, true, LINE_NAIVE - 1); // on the brace above the line he reviews
     f.set((s) => void (s.comments = [{ docId: DOC, line: LINE_NAIVE, author: 'anhTung', text: c.reviewAnhTung }]));
-    f.wait(1.8);
-    f.erase(DOC, c.naive.length, { cps: 75 });
-    f.type(DOC, 'em', c.fixed, { cps: 60 });
+    f.wait(2.7);
+    f.erase(DOC, c.naive.length, { cps: 50 });
+    f.type(DOC, 'em', c.fixed, { cps: 40 });
     f.set((s) => void (s.comments = []));
     f.showCursor('chiTrang', DOC, true, LINE_SIGNATURE);
     f.set((s) => void (s.comments = [{ docId: DOC, line: LINE_SIGNATURE, author: 'chiTrang', text: c.reviewChiTrang, approved: true }]));
-    f.wait(1.8);
+    f.wait(2.7);
   },
 };

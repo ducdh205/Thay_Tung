@@ -68,9 +68,10 @@ function Hair({ look, layer }: { look: Look; layer: 'back' | 'front' }) {
   if (look.hair === 'teacher') {
     return (
       <g fill={c}>
-        <path d="M-68 -66 C-76 -108 -62 -132 -38 -136 C-54 -116 -58 -96 -56 -66 Z" />
-        <path d="M68 -66 C76 -108 62 -132 38 -136 C54 -116 58 -96 56 -66 Z" />
-        <path d="M-40 -142 C-20 -156 20 -156 40 -142 C20 -148 -20 -148 -40 -142 Z" />
+        {/* Tóc đen dày, mái lệch vuốt sang một bên (thầy còn trẻ). */}
+        <path d="M-70 -74 C-84 -150 -34 -180 10 -174 C60 -170 88 -138 72 -74 C68 -98 60 -114 48 -122 C24 -104 -14 -100 -44 -112 C-56 -104 -64 -92 -70 -74 Z" />
+        <path d="M-44 -112 C-30 -150 20 -164 58 -136 C30 -146 -6 -140 -44 -112 Z" opacity={0.35} fill="#000" />
+        <path d="M-6 -168 C12 -186 44 -182 56 -164 C38 -172 16 -172 -6 -168 Z" />
       </g>
     );
   }
@@ -184,7 +185,7 @@ function Person({ x, y, s = 1, delay, bob = 1.7, look, children }: PersonProps) 
 }
 
 const LOOKS: Record<'thay' | 'duc' | 'trang' | 'tung' | 'phuong' | 'thom', Look> = {
-  thay: { hair: 'teacher', hairColor: '#9a9a9a', shirt: '#5f6878', shirt2: '#454c59', glasses: true },
+  thay: { hair: 'teacher', hairColor: '#1c1410', shirt: '#5f6878', shirt2: '#454c59', glasses: true },
   duc: { hair: 'short', hairColor: '#2a1d15', shirt: '#4f8ef7', shirt2: '#2f62c4' },
   trang: { hair: 'long', hairColor: '#1f1a1a', shirt: '#f28bb0', shirt2: '#c85a85' },
   tung: { hair: 'spiky', hairColor: '#231a14', shirt: '#4caf7a', shirt2: '#2f7d53', glasses: true },

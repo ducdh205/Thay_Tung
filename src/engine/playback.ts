@@ -20,7 +20,7 @@ export function shouldHideCursor(state: PlayState, movedSinceEnd: boolean): bool
 
 /** Keeps the master timeline and the music in lockstep. Music time == timeline time. */
 export function createPlayback({
-  tl, music, speed = 1, fadeOutSec = 5, onState,
+  tl, music, speed = 1, fadeOutSec = 6, onState,
   isHidden = () => typeof document !== 'undefined' && document.hidden,
 }: PlaybackOpts) {
   let st: PlayState = 'idle';
