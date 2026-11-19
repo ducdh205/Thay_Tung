@@ -14,27 +14,23 @@ export const s5: SceneDef = {
     f.set((s) => {
       clearScreen(s);
       s.explorer = { visible: true, items: [...content.explorerItems] };
+      s.terminal = { visible: true, lines: [] };
     });
-    f.wait(1);
-    f.set((s) => void (s.terminal = { visible: true, lines: [] }));
     for (const line of c.terminal) {
+      f.wait(0.2);
       f.set((s) => void s.terminal.lines.push(line));
-      f.wait(0.9);
     }
     f.openFile({ id: DOC, fileName: c.fileName, lang: 'php', text: '' });
-    f.type(DOC, 'thay', c.head, { cps: 20 });
-    f.wait(0.8);
-    f.type(DOC, 'em', c.first + c.naive, { cps: 16 });
+    f.type(DOC, 'thay', c.head, { cps: 40 });
+    f.type(DOC, 'em', c.first + c.naive, { cps: 50 });
     f.showCursor('anhTung', DOC, true, LINE_NAIVE - 1); // on the brace above the line he reviews
-    f.wait(1);
     f.set((s) => void (s.comments = [{ docId: DOC, line: LINE_NAIVE, author: 'anhTung', text: c.reviewAnhTung }]));
-    f.wait(3);
-    f.erase(DOC, c.naive.length, { cps: 30 });
-    f.type(DOC, 'em', c.fixed, { cps: 18 });
+    f.wait(1.8);
+    f.erase(DOC, c.naive.length, { cps: 75 });
+    f.type(DOC, 'em', c.fixed, { cps: 60 });
     f.set((s) => void (s.comments = []));
     f.showCursor('chiTrang', DOC, true, LINE_SIGNATURE);
-    f.wait(1);
     f.set((s) => void (s.comments = [{ docId: DOC, line: LINE_SIGNATURE, author: 'chiTrang', text: c.reviewChiTrang, approved: true }]));
-    f.wait(5);
+    f.wait(1.8);
   },
 };

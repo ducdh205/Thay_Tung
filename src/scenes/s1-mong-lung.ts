@@ -11,17 +11,15 @@ export const s1: SceneDef = {
     f.set(clearScreen);
     f.openFile({ id: 'nam-nhat', fileName: 'nam-nhat.txt', lang: 'text', text: '' });
     f.showCursor('em', 'nam-nhat');
-    f.wait(3.5);
-    f.type('nam-nhat', 'em', question, { cps: 9 });
-    f.wait(1.2);
-    f.erase('nam-nhat', question.length, { cps: 20 });
-    f.wait(0.8);
-    for (const t of tries) f.type('nam-nhat', 'em', t, { cps: 10 });
+    f.wait(0.6);
+    f.type('nam-nhat', 'em', question, { cps: 18 });
+    f.wait(0.4);
+    f.erase('nam-nhat', question.length, { cps: 45 });
+    for (const t of tries) f.type('nam-nhat', 'em', t, { cps: 22 });
     f.set((s) => void (s.docs['nam-nhat'].errorLines = [1, 2]));
-    f.wait(1.5);
-    f.erase('nam-nhat', tries.join('').length, { cps: 25 });
+    f.wait(0.6);
+    f.erase('nam-nhat', tries.join('').length, { cps: 55 });
     f.set((s) => void (s.docs['nam-nhat'].errorLines = []));
-    f.subtitle(content.subtitles[0], 4.5);
-    f.wait(1.5);
+    f.subtitle(content.subtitles[0], 3.4);
   },
 };

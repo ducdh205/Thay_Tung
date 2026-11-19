@@ -62,13 +62,13 @@ describe('FilmApi', () => {
 });
 
 describe('buildMaster', () => {
-  it('records scene start times including 0.6s fades', () => {
+  it('records scene start times including 0.4s fades', () => {
     const m = buildMaster(
       [{ id: 'x', build: (f) => f.wait(2) }, { id: 'y', build: (f) => f.wait(3) }],
       createFilmStore(),
     );
-    expect(m.sceneStarts).toEqual([0, 3.2]);
-    expect(m.duration).toBeCloseTo(3.2 + 0.6 + 3, 2);
+    expect(m.sceneStarts).toEqual([0, 2.8]);
+    expect(m.duration).toBeCloseTo(2.8 + 0.4 + 3, 2);
     expect(m.tl.paused()).toBe(true);
   });
 });

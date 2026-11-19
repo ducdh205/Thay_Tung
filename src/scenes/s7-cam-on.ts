@@ -11,20 +11,20 @@ export const s7: SceneDef = {
   build(f) {
     f.set(clearScreen);
     f.openFile({ id: CARD_DOC, fileName: c.fileName, lang: 'html', text: '' });
-    f.wait(1.5);
-    f.type(CARD_DOC, 'thay', c.open, { cps: 14 });
-    c.together.forEach(([who, line], i) => f.type(CARD_DOC, who, line, { cps: 12, with: i > 0 }));
-    f.type(CARD_DOC, 'thay', c.close, { cps: 14 });
-    f.wait(1.5);
+    f.wait(0.4);
+    f.type(CARD_DOC, 'thay', c.open, { cps: 35 });
+    c.together.forEach(([who, line], i) => f.type(CARD_DOC, who, line, { cps: 22, with: i > 0 }));
+    f.type(CARD_DOC, 'thay', c.close, { cps: 35 });
+    f.wait(0.4);
     f.set((s) => void (s.preview.runPressed = true));
-    f.wait(0.8);
+    f.wait(0.6);
     f.set((s) => {
       s.preview.visible = true;
       s.preview.stage = 'card';
       s.preview.full = 0;
     });
-    f.wait(2.5);
-    f.tween((s, p) => void (s.preview.full = p), 2.5);
-    f.wait(22);
+    f.wait(0.8);
+    f.tween((s, p) => void (s.preview.full = p), 1.6);
+    f.wait(3.9);
   },
 };

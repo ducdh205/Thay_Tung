@@ -4,7 +4,7 @@ import { createFilmStore } from '../../src/engine/store';
 import { SCENES } from '../../src/scenes';
 import { content } from '../../src/content';
 
-const TARGETS = [20, 30, 30, 30, 35, 30, 40];
+const TARGETS = [8, 8, 7, 8, 10, 8, 11];
 
 function film() {
   const store = createFilmStore();
@@ -60,10 +60,10 @@ describe('scenes', () => {
     expect(s.subtitle).toBeNull();
   });
 
-  it('has all seven scenes and a 3–4 minute total', () => {
+  it('has all seven scenes and a total of about one minute', () => {
     expect(SCENES.length).toBe(7);
-    expect(m.duration).toBeGreaterThanOrEqual(180);
-    expect(m.duration).toBeLessThanOrEqual(240);
+    expect(m.duration).toBeGreaterThanOrEqual(50);
+    expect(m.duration).toBeLessThanOrEqual(60);
   });
 
   it('ends on the card after Run was pressed, filling the stage', () => {

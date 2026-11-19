@@ -12,7 +12,7 @@ export interface FilmApi {
   set(fn: (s: FilmState) => void): void;
   tween(fn: (s: FilmState, p: number) => void, dur: number, o?: VerbOpts): void;
   wait(sec: number): void;
-  subtitle(text: string, holdSec: number): void;
+  subtitle(text: string, holdSec: number, o?: VerbOpts): void;
   fadeOut(sec: number): void;
   fadeIn(sec: number): void;
   now(): number;
@@ -143,8 +143,8 @@ export function createFilm(store: FilmStore, tl: gsap.core.Timeline): FilmApi {
       tl.to({}, { duration: sec }, at());
     },
 
-    subtitle(text, holdSec) {
-      const t = at();
+    subtitle(text, holdSec, o) {
+      const t = at(o);
       setAt(t, (s) => void (s.subtitle = text));
       tl.to({}, { duration: holdSec }, t);
       setAt(t + holdSec, (s) => void (s.subtitle = null));
