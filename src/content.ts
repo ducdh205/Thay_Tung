@@ -92,14 +92,27 @@ export const content = {
 
   phpRows: ['Trang web đầu tiên của em', 'Đã chạy được PHP rồi!', 'Cảm ơn thầy đã chỉ em từng dòng'],
 
+  /** Tấm thiệp cuối phim: tranh lớp học bên trái, tờ giấy viết tay bên phải. */
   card: {
-    title: 'Cảm ơn thầy',
-    body: [
-      'Năm nhất, em chỉ có một màn hình trống và rất nhiều câu hỏi.',
-      'Thầy đã cùng em gõ những dòng code đầu tiên, rồi mở cho em cả một con đường.',
-      'Mọi điều em làm được hôm nay đều có dấu con trỏ của thầy trong đó.',
-    ],
-    wish: 'Chúc thầy một ngày 20/11 thật nhiều sức khoẻ và niềm vui.',
-    signature: 'Em – [Tên của bạn]',
+    kicker: 'Tri ân',
+    title: 'Thầy Tùng',
+    wish:
+      'Chúc thầy luôn dồi dào sức khoẻ, niềm vui và hạnh phúc. Cảm ơn thầy đã cùng chúng em gõ những dòng code đầu tiên, ' +
+      'kiên nhẫn gỡ từng con bug và mở lối cho chúng em trên hành trình trở thành những kỹ sư công nghệ.',
+    footer: 'Chúc mừng ngày 20 tháng 11',
+    signature: 'Đức, Trang, Tùng, Phương, Thơm',
+    /** Tên trên thẻ đeo của từng người trong tranh (thứ tự khớp vị trí trong CardPreview). */
+    teacher: 'Thầy Tùng',
+    students: ['Đức', 'Trang', 'Tùng', 'Phương', 'Thơm'],
+    /** Code tự gõ trên màn hình lớn trong tranh. */
+    screen: {
+      fileName: 'tri-an.js',
+      lines: [
+        'const thay = new GiangVien("Tùng");',
+        'lopCNTT.forEach(thay.truyenLua);',
+        '// Hôm nay là 20/11',
+        'console.log("Cảm ơn thầy!");',
+      ],
+    },
   },
 };

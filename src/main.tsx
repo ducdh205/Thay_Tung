@@ -10,6 +10,8 @@ import '@fontsource/lora/latin-400-italic.css';
 import '@fontsource/lora/vietnamese-400-italic.css';
 import '@fontsource/playfair-display/latin-400.css';
 import '@fontsource/playfair-display/vietnamese-400.css';
+import '@fontsource/dancing-script/latin-600.css';
+import '@fontsource/dancing-script/vietnamese-600.css';
 import './global.css';
 import { App } from './App';
 

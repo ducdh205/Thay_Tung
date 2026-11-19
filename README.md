@@ -28,8 +28,10 @@ Hết phim, tấm thiệp vẫn giữ trên màn hình. Góc dưới bên phải
 
 Mọi chữ hiện trên phim nằm trong **`src/content.ts`**:
 
-- `card.signature`: tên ký cuối thiệp (hiện đang là `Em – [Tên của bạn]`, **nhớ sửa**)
-- `card.body`, `card.wish`: lời cảm ơn
+- `card.signature`: tên ký cuối thiệp
+- `card.kicker`, `card.title`, `card.wish`, `card.footer`: chữ trên tờ giấy của thiệp
+- `card.teacher`, `card.students`: tên trên thẻ đeo của 6 nhân vật trong tranh
+- `card.screen`: đoạn code tự gõ trên màn hình trong tranh
 - `subtitles`: 2 câu phụ đề
 - `cursors`: tên trên các con trỏ (Em, Thầy Tùng, Anh Tùng, Chị Trang)
 - `branches`: tên các nhánh "cơ hội" ở cảnh 6
